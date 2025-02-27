@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardianBox - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section with Full-Sized Heading -->
+        <div class="left-section">
+            <h1>REAL-TIME MONITORING <br> & EMERGENCY RESPONSE <br> SYSTEM FOR TAXIS</h1>
+        </div>
+
+        <!-- Right Section with Login Form -->
+        <div class="right-section">
+            <form action="" class="form" id="loginForm">
+                <p>Welcome<span>Sign in to continue</span></p>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <button type="submit">
+                    Log In
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 17 5-5-5-5"></path>
+                        <path d="m13 17 5-5-5-5"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            alert(`Logging in with Email: ${email}`);
+        });
+    </script>
+</body>
+</html>
