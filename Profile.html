@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Guardian Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="SafetyGaurd.css">
+    <style>
+        :root {
+            --background: hsl(217, 33%, 17%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border: #333;
+            --primary: #6366f1;
+            --text: #e0e0e0;
+        }
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            padding: 20px;
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .profile-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+        .profile-header h2 {
+            margin: 10px 0;
+            color: var(--text);
+        }
+        .profile-header p {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+        }
+        .menu-toggle, .close-menu {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            transition: 0.3s;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-profile img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .content-wrapper {
+            margin-left: 0;
+            transition: 0.3s;
+        }
+  
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">Guardian Box</div>
+        <div class="nav-right">
+            <a href="#faq" class="nav-link">FAQ</a>
+        </div>
+    </nav>
+    
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="user-profile">
+                <img src="PicRohit.jpg"" alt="Profile" class="profile-image">
+                <div class="user-info">
+                    <h3>Rohit Pyla</h3>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+        <ul class="menu-items">
+            <li data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </li>
+            <li data-page="monitoring">
+                <i class="fas fa-video"></i>
+                <span>Live Monitoring</span>
+            </li>
+            <li data-page="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Live Location</span>
+            </li>
+            <li data-page="emergency">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Emergency Controls</span>
+            </li>
+            <li class="active" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </li>
+            <li data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="content-wrapper">
+        <div class="page active" id="profile">
+            <h1>Profile</h1>
+            <div class="profile-container">
+                <div class="profile-header">
+                    <img src="PicRohit.jpg" alt="Profile">
+                    <h2>Rohit Pyla</h2>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TrustWay Rides</h3>
+                <h4>Making taxi rides safer and smarter with cutting-edge technology.</h4>
+                
+                    <p>TrustWay's Smart-Taxi Black Box is a revolutionary device that transforms regular taxis into smart, connected vehicles. Our system provides real-time monitoring, advanced safety features, and comprehensive analytics for both drivers and passengers.</p>
+
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="mailto:trustwayrides@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TrustWay Rides. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="Profile.js"></script>
+</body>
+</html>

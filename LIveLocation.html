@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location - Guardian Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="SafetyGaurd.css">
+    <style>
+        :root {
+            --background: hsl(217, 33%, 17%);
+            --card-bg: #1e1e1e;
+            --border: #333;
+            --primary: #6366f1;
+            --text: #e0e0e0;
+            --darker-bg: #181818;
+        }
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            padding: 20px;
+        }
+        .logo{
+            align-content: center;
+        }
+        .map-container {
+            margin: 20px;
+            height: calc(100vh - 200px);
+        }
+        .placeholder-map {
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .placeholder-map:hover {
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+        .page h1 {
+            color: var(--text);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+
+
+        .menu-toggle, .close-menu {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            transition: 0.3s;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-profile img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .content-wrapper {
+            margin-left: 0;
+            transition: 0.3s;
+        }
+        
+        .page {
+            padding: 20px;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">Guardian Box</div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="user-profile">
+                <img src="PicRohit.jpg" alt="Profile">
+                <div class="user-info">
+                    <h3>Rohit Pyla</h3>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+        <ul class="menu-items">
+            <li data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+            <li data-page="monitoring"><i class="fas fa-video"></i> Live Monitoring</li>
+            <li class="active" data-page="location"><i class="fas fa-map-marker-alt"></i> Live Location</li>
+            <li data-page="emergency"><i class="fas fa-exclamation-triangle"></i> Emergency Controls</li>
+            <li data-page="profile"><i class="fas fa-user"></i> Profile</li>
+            <li data-page="settings"><i class="fas fa-cog"></i> Settings</li>
+        </ul>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="page active">
+            <h1>Live Location Tracking</h1>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="menu-items">
+        <li id="emergencyCall"><i class="fas fa-hospital"></i> Find Hospitals</li>
+        <li id="alertAuthorities"><i class="fas fa-shield-alt"></i> Find Police Stations</li>
+    </ul>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TrustWay Rides</h3>
+                <h4>Making taxi rides safer and smarter with cutting-edge technology.</h4>
+                
+                    <p>TrustWay's Smart-Taxi Black Box is a revolutionary device that transforms regular taxis into smart, connected vehicles. Our system provides real-time monitoring, advanced safety features, and comprehensive analytics for both drivers and passengers.</p>
+
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="mailto:trustwayrides@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TrustWay Rides. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="LiveLocation.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=ea7c371a8639427593a4497a6feda09e&callback=initMap" async defer></script>
+</body>
+</html>

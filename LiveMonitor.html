@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Monitoring - Guardian Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="SafetyGaurd.css">
+    <style>
+        :root {
+            --background: hsl(217, 33%, 17%);
+            --card-bg: #1e1e1e;
+            --border: #333;
+            --primary: #6366f1;
+            --text: #e0e0e0;
+            --darker-bg: #181818;
+        }
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            padding: 20px;
+        }
+        .page-title{
+            padding-top: 26px;
+        }
+        .monitoring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 50px;
+        }
+        .camera-feed {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .camera-feed:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+        .camera-feed h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        .placeholder-feed {
+            width: 100%;
+            height: 300px;
+            background: var(--darker-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .menu-toggle, .close-menu {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            transition: 0.3s;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-profile img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .content-wrapper {
+            margin-left: 0;
+            transition: 0.3s;
+        }
+        .video-stream {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">Guardian Box</div>
+        <div class="nav-right">
+           
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="user-profile">
+                <img src="PicRohit.jpg"" alt="Profile" class="profile-image">
+                <div class="user-info">
+                    <h3>Rohit Pyla</h3>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+        <ul class="menu-items">
+            <li data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </li>
+            <li class="active" data-page="monitoring">
+                <i class="fas fa-video"></i>
+                <span>Live Monitoring</span>
+            </li>
+            <li data-page="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Live Location</span>
+            </li>
+            <li data-page="emergency">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Emergency Controls</span>
+            </li>
+            <li data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </li>
+            <li data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="alert-box" id="alertBox">ALERT! Data Received!</div>
+    <audio id="alarmSound" src="alarm.mp3"></audio>
+    
+    <div class="content-wrapper">
+        <h1 class="page-title">Smart Monitoring Dashboard</h1>
+        <div class="monitoring-grid">
+            <div class="camera-feed">
+                <h3>Camera Feed</h3>
+                <img id="camera-stream" src="http://192.168.144.240:5000/video_feed" alt="Live Camera Feed" class="placeholder-feed">
+            </div>
+            
+            <div class="camera-feed">
+                <h3>Sensor Data & Live Audio</h3>
+                <div class="placeholder-feed" id="sensor-data">Fetching...</div>
+                <audio id="live-audio" controls autoplay>
+                    <source src="http://192.168.144.240:5000/alerts" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>            
+        </div>
+    </div>
+
+   
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TrustWay Rides</h3>
+                <h4>Making taxi rides safer and smarter with cutting-edge technology.</h4>
+                
+                    <p>TrustWay's Smart-Taxi Black Box is a revolutionary device that transforms regular taxis into smart, connected vehicles. Our system provides real-time monitoring, advanced safety features, and comprehensive analytics for both drivers and passengers.</p>
+
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="mailto:trustwayrides@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TrustWay Rides. All rights reserved.</p>
+        </div>
+    </footer>
+   
+
+    <script src="LiveMonitor.js"></script>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch("http://your-raspberry-pi-ip:5000/data"); // Replace with your Raspberry Pi's IP
+                const data = await response.json();
+                
+                if (data && data.temperature && data.humidity) {
+                    document.getElementById("camera-status").textContent = data.cameraStatus || "No Data";
+                    document.getElementById("sensor-data").textContent = `Temperature: ${data.temperature}°C, Humidity: ${data.humidity}%`;
+                    triggerAlert();
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                document.getElementById("camera-status").textContent = "Error retrieving data";
+                document.getElementById("sensor-data").textContent = "Error retrieving data";
+            }
+        }
+
+        function triggerAlert() {
+            const alertBox = document.getElementById("alertBox");
+            const alarmSound = document.getElementById("alarmSound");
+            
+            alertBox.style.display = "block";
+            alarmSound.play();
+            
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 5000);
+        }
+
+        setInterval(fetchData, 5000);
+        function refreshVideo() {
+            const cameraFeed = document.getElementById("camera-feed");
+            cameraFeed.src = "http://192.168.144.240:5000/video_feed?" + new Date().getTime();
+        }
+        
+        // Refresh the feed every 5 seconds (optional)
+        setInterval(refreshVideo, 5000);
+        
+    </script>
+</body>
+</html>
