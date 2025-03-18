@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Guardian Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="SafetyGaurd.css">
+    <style>
+        :root {
+            --background: hsl(217, 33%, 17%);
+            --card-bg: #1e1e1e;
+            --border: #333;
+            --primary: #6366f1;
+            --text: #e0e0e0;
+            --darker-bg: #181818;
+        }
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            padding: 20px;
+        }
+        .settings-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .settings-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+        .settings-group h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #444;
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 12px;
+            width: 12px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px var(--shadow);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            width: 300px;
+            height: 160px;
+            border: 1px solid var(--border);
+        }
+
+        .modal h3 {
+            margin-bottom: 15px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn.confirm {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn.confirm:hover {
+            background: #b91c1c;
+        }
+
+        .btn.cancel {
+            background: #4b5563;
+            color: white;
+        }
+
+        .btn.cancel:hover {
+            background: #374151;
+        }
+        
+        .logout-btn {
+            padding: 10px 18px;
+            font-size: 16px;
+            font-weight: bold;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .logout-btn:hover {
+            background: #5254e7;
+            transform: translateY(-2px);
+        }
+        .menu-toggle, .close-menu {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            transition: 0.3s;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-profile img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .content-wrapper {
+            margin-left: 0;
+            transition: 0.3s;
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">Guardian Box</div>
+        <div class="nav-right">
+          
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="user-profile">
+                <img src="PicRohit.jpg"" alt="Profile" class="profile-image">
+                <div class="user-info">
+                    <h3>Rohit Pyla</h3>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+        <ul class="menu-items">
+            <li data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </li>
+            <li data-page="monitoring">
+                <i class="fas fa-video"></i>
+                <span>Live Monitoring</span>
+            </li>
+            <li data-page="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Live Location</span>
+            </li>
+            <li data-page="emergency">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Emergency Controls</span>
+            </li>
+            <li data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </li>
+            <li class="active" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="page active" id="settings">
+            <h1>Settings</h1>
+            <div class="settings-container">
+                <div class="settings-group">
+                    <h3>General Settings</h3>
+                    <div class="setting-item">
+                        <span>Notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button class="logout-btn" onclick="showLogoutModal()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="logoutModal">
+        <h3>Are you sure you want to logout?</h3>
+        <div class="modal-buttons">
+            <button class="btn confirm" onclick="logout()">Yes, Logout</button>
+            <button class="btn cancel" onclick="hideLogoutModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function showLogoutModal() {
+            document.getElementById("logoutModal").style.display = "block";
+        }
+
+        function hideLogoutModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function logout() {
+            window.location.href = "login.html"; // Redirect to login page
+        }
+    </script>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>TrustWay Rides</h3>
+            <h4>Making taxi rides safer and smarter with cutting-edge technology.</h4>
+            
+                <p>TrustWay's Smart-Taxi Black Box is a revolutionary device that transforms regular taxis into smart, connected vehicles. Our system provides real-time monitoring, advanced safety features, and comprehensive analytics for both drivers and passengers.</p>
+
+        </div>
+        <div class="footer-section">
+            <h3>Connect With Us</h3>
+            <div class="social-links">
+                <a href="mailto:trustwayrides@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" class="social-link">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 TrustWay Rides. All rights reserved.</p>
+    </div>
+</footer>
+   
+    <!-- Modal for FAQ -->
+    <div class="modal" id="faqModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="productTitlee"">Frequently Asked Questions</h2>
+            <div class="faq-content">
+                <div class="faq-item">
+                    <h3>Terms and Conditions</h3>
+                    <div class="terms-section">
+                        <h4>1. Service Usage</h4>
+                        <p>By using TrustWay Rides services, you agree to comply with all applicable laws and regulations. The service is provided "as is" and we reserve the right to modify or discontinue any feature without prior notice.</p>
+                    </div>
+                    <div class="terms-section">
+                        <h4>2. Privacy Policy</h4>
+                        <p>We collect and process data in accordance with our privacy policy. All video footage and personal information are encrypted and stored securely. Access to data is strictly controlled and monitored.</p>
+                    </div>
+                    <div class="terms-section">
+                        <h4>3. Safety Guidelines</h4>
+                        <p>Users must follow all safety guidelines and emergency procedures as outlined in the user manual. Any misuse of the emergency alert system may result in service suspension.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <script src="Settings.js"></script>
+</body>
+</html>

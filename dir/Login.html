@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page - Real-Time Monitoring & Emergency Response</title>
+    <link rel="stylesheet" href="Login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="textbg.png" alt="Smart Taxi Black Box">
+        </div>
+        <div class="form-container">
+            <form class="form" id="loginForm">
+                <p><strong>Sign in</strong></p>
+                <p id="p1"><span>Access Your Monitoring Dashboard</span></p>
+                <input type="text" placeholder="Username" id="username" name="username" required>
+                <input type="email" placeholder="Email" id="email" name="email" required>
+                <button type="button" id="sendOtpBtn" onclick="sendOtp()">Send OTP</button>
+                <input type="text" id="otp" placeholder="Enter OTP" name="otp" style="display: none;">
+                <button type="button" id="verifyOtpBtn" onclick="verifyOtp()" style="display: none;">Verify OTP</button>
+                <a class="change-phone-btn" onclick="resetForm()">Change email?</a>
+
+            </form>
+        </div>
+    </div>
+    <div id="moving-text">
+        <div class="con">
+            <h1>Safety</h1>
+            <div id="gola"></div>
+            <h1>Real-Time Monitoring</h1>
+            <div id="gola"></div>
+            <h1>Quick Response</h1>
+            <div id="gola"></div>
+        </div>
+        <div class="con">
+            <h1>Safety</h1>
+            <div id="gola"></div>
+            <h1>Real-Time Monitoring</h1>
+            <div id="gola"></div>
+            <h1>Quick Response</h1>
+            <div id="gola"></div>
+        </div>
+        <div class="con">
+            <h1>Safety</h1>
+            <div id="gola"></div>
+            <h1>Real-Time Monitoring</h1>
+            <div id="gola"></div>
+            <h1>Quick Response</h1>
+            <div id="gola"></div>
+        </div>
+    </div>
+    <script src="Login.js"></script>
+</body>
+</html>

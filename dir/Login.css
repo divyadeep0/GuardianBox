@@ -1,0 +1,173 @@
+:root {
+    --primary-color: #003366;
+    --secondary-color: #ff4400ad;
+    --input-color: #0e087cdc;
+    --input1-color: #47455232;            
+    --text-color: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), black);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    flex: 1;
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.image-container img {
+    width: 300%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left;
+}
+
+.form-container {
+    flex: 1;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.form {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 60px;
+    border-radius: 10px;
+    margin-bottom: 60px;
+    border: 4px solid var(--primary-color);
+    box-shadow: 6px 6px var(--primary-color);
+    width: 420px;
+}
+
+.form > p {
+    font-size: 28px;
+    font-weight: bold; /* Ensures bold text */
+    font-family: "Permanent Marker", cursive;
+    margin-bottom: 10px;
+    margin-top: -30px;
+    text-align: center; /* Centers the text */
+}
+
+.form > p#p1 {
+    font-size: 17px;
+    font-weight: normal; /* Ensures normal text */
+    font-family: "Permanent Marker", cursive;
+    margin-bottom: 3px;
+    padding-top: 35px;
+    color: #7896b3c2;
+    text-align: center; /* Centers the text */
+}
+
+.form > input, .form > button {
+    width: 100%;
+    height: 50px;
+    margin-top: 23px;
+    border-radius: 10px;
+    border: 3px solid var(--primary-color);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    box-shadow: 3px 3px var(--input-color);
+}
+
+.form > input:hover {
+    background-color: var(--input1-color);
+}
+
+.form button {
+    cursor: pointer;
+    transition: all 250ms;
+    border-color: var(--secondary-color);
+    box-shadow: 3px 3px var(--secondary-color);
+}
+
+.form button:hover {
+    background-color: var(--secondary-color);
+}
+
+.change-phone-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+    font-family: Permanent Marker, cursive;
+    font-size: 14px; /* Reduced font size */
+    padding: 5px 10px; /* Smaller padding */
+}
+
+.change-phone-btn:hover {
+    color: #ff8800;
+}
+
+#moving-text {
+    overflow-x: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.con {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    animation: move 30s linear infinite;
+}
+
+#moving-text h1 {
+    font-size: 4vw;
+    font-family: Caveat, cursive;
+    color: #d2dce40e;
+    display: inline-block;
+}
+
+#gola {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #395eda4b;
+    margin: 1vw 2vw;
+}
+
+@keyframes move {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
