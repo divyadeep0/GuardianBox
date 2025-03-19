@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Controls - Guardian Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="SafetyGaurd.css">
+    <style>
+        :root {
+            --background: hsl(217, 33%, 17%);
+            --card-bg: #1e1e1e;
+            --border: #333;
+            --primary: #3d87cbc0;
+            --text: #e0e0e0;
+            --darker-bg: #181818;
+        }
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            padding: 50px;
+        }
+        .emergency-container {
+            background: var(--darker-bg);
+            padding: 30px;
+            padding-top: 80px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .emergency-header {
+            text-align: center;
+            padding: 20px;
+            background: #fafafb00;
+            color: white;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .emergency-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .emergency-buttons button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .emergency-buttons button:hover {
+                box-shadow: 0 8px 30px rgba(190, 52, 52, 0.701);
+                border-color: var(--primary);
+        }
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .control-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .control-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .control-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .activate-btn {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .activate-btn:hover {
+            background: #1565c0;
+        }
+
+    .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 11, 11, 0.482);
+    z-index: 1002;
+}
+
+.modal-content {
+    position: relative;
+    background: rgb(236, 233, 233);
+    margin: 5% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 0.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: black;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.productTitlee{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.product-details, .faq-content {
+    margin-top: 2rem;
+    color: var(--border);
+}
+
+.detail-section {
+    margin-bottom: 2rem;
+    color: var(--dark-bg);
+}
+
+.detail-section h3 {
+    color: rgb(24, 23, 23);
+    margin-bottom: 1rem;
+}
+
+.detail-section ul {
+    list-style-type: none;
+    padding-left: 1.5rem;
+    color: var(--darker-bg);
+}
+
+.detail-section ul li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    color: var(--darker-bg);
+}
+
+.detail-section ul li::before {
+    content: '•';
+    color: rgb(119, 117, 117);
+    position: absolute;
+    left: -1.5rem;
+}
+
+.menu-toggle, .close-menu {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text);
+}
+
+.sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    background: var(--card-bg);
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.content-wrapper {
+    margin-left: 0;
+    transition: 0.3s;
+}
+
+
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">Guardian Box</div>
+        <div class="nav-right">
+            
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="user-profile">
+                <img src="PicRohit.jpg"" alt="Profile" class="profile-image">
+                <div class="user-info">
+                    <h3>Rohit Pyla</h3>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+        <ul class="menu-items">
+            <li data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </li>
+            <li data-page="monitoring">
+                <i class="fas fa-video"></i>
+                <span>Live Monitoring</span>
+            </li>
+            <li data-page="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Live Location</span>
+            </li>
+            <li class="active" data-page="emergency">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Emergency Controls</span>
+            </li>
+            <li data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </li>
+            <li data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="page active" id="emergency">
+        <div class="emergency-container">
+            <div class="emergency-header">Emergency Response Center</div>
+            <div class="emergency-buttons">
+                <button onclick="emergencyCall()"><i class="fas fa-phone"></i> Emergency Call</button>
+                <button onclick="openModal()"><i class="fas fa-exclamation-circle"></i> Alert Authorities</button>
+            </div>
+            <div class="controls-grid">
+                <div class="control-box">
+                    <h3>Vehicle Controls</h3>
+                    <div class="control-item">
+                        <span>SOS</span>
+                        <a href="tel:911" class="activate-btn">Activate</a>
+                    </div>
+                    <div class="control-item">
+                        <span>Horn</span>
+                        <button class="activate-btn">Activate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TrustWay Rides</h3>
+                <h4>Making taxi rides safer and smarter with cutting-edge technology.</h4>
+                
+                    <p>TrustWay's Smart-Taxi Black Box is a revolutionary device that transforms regular taxis into smart, connected vehicles. Our system provides real-time monitoring, advanced safety features, and comprehensive analytics for both drivers and passengers.</p>
+
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="mailto:trustwayrides@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TrustWay Rides. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="EmergencyAlearts.js"></script>
+</body>
+</html>
